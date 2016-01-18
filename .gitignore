@@ -1,0 +1,9 @@
+*~
+annotationTools/perl/globalvariables.pl
+annotationTools/php/globalvariables.php
+annotationTools/scribble/segment.cgi
+*.o
+*.a
+annotationTools/scribble/image.jpg
+annotationTools/scribble/mask.png
+annotationTools/scribble/scribble.png
