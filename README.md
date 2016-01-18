@@ -43,6 +43,12 @@ $ git clone https://github.com/CSAILVision/LabelMeAnnotationTool.git
 
 1. Put LabelMe annotation tool code on web server (see web server
    configuration requirements below).
+   ``` sh
+   $ sudo a2enmod cgi
+   $ sudo a2enmod rewrite
+   $ sudo a2enmod include
+   $ sudo apt-get install libapache2-mod-perl2
+   ```
 
 2. On the command line run:
 
@@ -206,3 +212,4 @@ definitions.
 ---- 
 
 (c) 2015, MIT Computer Science and Artificial Intelligence Laboratory
+
