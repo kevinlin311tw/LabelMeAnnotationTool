@@ -80,8 +80,8 @@ function DrawCanvasMouseMove(event){
   var yarr = [draw_y[0],draw_y[0], Math.round(yb/scale), Math.round(yb/scale), draw_y[0]];
   draw_anno.DrawPolyLine(xarr, yarr);
 
-  /*DrawPolygon(draw_anno.div_attach,xarr, yarr,'drawing_bounding_box','stroke="#0000ff" stroke-width="4" fill-opacity="0.0"',scale);
-  DrawPoint(draw_anno.div_attach,draw_x[0],draw_y[0],'r="6" fill="#00ff00" stroke="#ffffff" stroke-width="3"',scale);*/
+  //DrawPolygon(draw_anno.div_attach,xarr, yarr,'drawing_bounding_box','stroke="#0000ff" stroke-width="4" fill-opacity="0.0"',scale);
+  DrawPoint(draw_anno.div_attach,draw_x[0],draw_y[0],'r="6" fill="#00ff00" stroke="#ffffff" stroke-width="3"',scale);
 
 }
 /** Handles when the user presses the mouse button down on the drawing

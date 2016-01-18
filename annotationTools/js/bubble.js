@@ -130,9 +130,15 @@ function GetPopupFormDraw(scribble_form) {
   
   if(use_attributes) {
     html_str += HTMLoccludedBox("");
-    html_str += "<b>Enter attributes</b><br />";
+    html_str += "<b>Enter color</b><br />";
     html_str += HTMLattributesBox("");
   }
+  /*if(use_attributes) {
+    html_str += HTMLoccludedBox("");
+    html_str += "<b>Enter attributes</b><br />";
+    html_str += HTMLattributesBox("");
+  }*/
+
   if(use_parts) {
     html_str += HTMLpartsBox("");
   }
@@ -162,6 +168,7 @@ function GetPopupFormEdit(anno) {
   if(obj_name=="") obj_name = "?";
   var attributes = LMgetObjectField(LM_xml,anno.anno_id,'attributes');
   var occluded = LMgetObjectField(LM_xml,anno.anno_id,'occluded');
+  var color = LMgetObjectField(LM_xml,anno.anno_id,'color');
   var parts = LMgetObjectField(LM_xml, anno.anno_id, 'parts');
   
   html_str = "<b>Enter object name</b><br />"; 
@@ -169,8 +176,10 @@ function GetPopupFormEdit(anno) {
   
   if(use_attributes) {
     html_str += HTMLoccludedBox(occluded);
-    html_str += "<b>Enter attributes</b><br />";
-    html_str += HTMLattributesBox(attributes);
+    html_str += "<b>Enter color</b><br />";
+    html_str += HTMLattributesBox(color);
+    //html_str += "<b>Enter attributes</b><br />";
+    //html_str += HTMLattributesBox(attributes);
   }
   
   if(use_parts) {
@@ -280,9 +289,224 @@ function HTMLoccludedBox(occluded) {
 }
 
 // Boxes to enter attributes
-function HTMLattributesBox(attList) {    
-  return '<textarea name="attributes" id="attributes" type="text" style="width:260px; height:3em;" tabindex="0" title="Enter a comma separated list of attributes, adjectives or other object properties">'+attList+'</textarea>';
+function HTMLattributesBox(color) {
+  var html_str="";
+
+  // by default, the value of occluded is "no"
+  if (!(color=="beige" || color=="black" || color=="blue" || color=="brown" || color=="gray" || color=="green" || color=="orange" || color=="pink" || color=="purple" || color=="red" || color=="white" || color=="yellow" || color=="multiple")) {
+    color="multiple";
+  }
+  
+  // the value of the selection is inside a hidden field:
+  html_str += 'Select color: <input type="hidden" name="attributes" id="attributes" value="'+color+'"/>';
+  
+  // generate radio button   beige, black, blue, brown, gray, green, orange, pink, purple, red, white, yellow, multiple
+  if (color=='beige') {
+    html_str += '<input type="radio" name="attributes" id="attributes" value="beige" checked="yes" onclick="document.getElementById(\'attributes\').value=\'beige\';" />beige';
+    html_str += '<input type="radio" name="attributes" id="attributes" value="black"  onclick="document.getElementById(\'attributes\').value=\'black\';" />black';
+    html_str += '<input type="radio" name="attributes" id="attributes" value="blue"  onclick="document.getElementById(\'attributes\').value=\'blue\';" />blue';
+    html_str += '<input type="radio" name="attributes" id="attributes" value="brown" onclick="document.getElementById(\'attributes\').value=\'brown\';" />brown';
+    html_str += '<input type="radio" name="attributes" id="attributes" value="gray" onclick="document.getElementById(\'attributes\').value=\'gray\';" />gray';
+    html_str += '<input type="radio" name="attributes" id="attributes" value="green"  onclick="document.getElementById(\'attributes\').value=\'green\';" />green';
+    html_str += '<input type="radio" name="attributes" id="attributes" value="orange"  onclick="document.getElementById(\'attributes\').value=\'orange\';" />orange';
+    html_str += '<input type="radio" name="attributes" id="attributes" value="pink" onclick="document.getElementById(\'attributes\').value=\'pink\';" />pink';
+    html_str += '<input type="radio" name="attributes" id="attributes" value="purple" onclick="document.getElementById(\'attributes\').value=\'purple\';" />purple';
+    html_str += '<input type="radio" name="attributes" id="attributes" value="red"  onclick="document.getElementById(\'attributes\').value=\'red\';" />red';
+    html_str += '<input type="radio" name="attributes" id="attributes" value="white"  onclick="document.getElementById(\'attributes\').value=\'white\';" />white';
+    html_str += '<input type="radio" name="attributes" id="attributes" value="yellow" onclick="document.getElementById(\'attributes\').value=\'yellow\';" />yellow';
+    html_str += '<input type="radio" name="attributes" id="attributes" value="multiple" onclick="document.getElementById(\'attributes\').value=\'multiple\';" />multiple';
+  }
+  else if (color=='black') {
+    html_str += '<input type="radio" name="attributes" id="attributes" value="beige"  onclick="document.getElementById(\'attributes\').value=\'beige\';" />beige';
+    html_str += '<input type="radio" name="attributes" id="attributes" value="black" checked="yes" onclick="document.getElementById(\'attributes\').value=\'black\';" />black';
+    html_str += '<input type="radio" name="attributes" id="attributes" value="blue"  onclick="document.getElementById(\'attributes\').value=\'blue\';" />blue';
+    html_str += '<input type="radio" name="attributes" id="attributes" value="brown" onclick="document.getElementById(\'attributes\').value=\'brown\';" />brown';
+    html_str += '<input type="radio" name="attributes" id="attributes" value="gray" onclick="document.getElementById(\'attributes\').value=\'gray\';" />gray';
+    html_str += '<input type="radio" name="attributes" id="attributes" value="green"  onclick="document.getElementById(\'attributes\').value=\'green\';" />green';
+    html_str += '<input type="radio" name="attributes" id="attributes" value="orange"  onclick="document.getElementById(\'attributes\').value=\'orange\';" />orange';
+    html_str += '<input type="radio" name="attributes" id="attributes" value="pink" onclick="document.getElementById(\'attributes\').value=\'pink\';" />pink';
+    html_str += '<input type="radio" name="attributes" id="attributes" value="purple" onclick="document.getElementById(\'attributes\').value=\'purple\';" />purple';
+    html_str += '<input type="radio" name="attributes" id="attributes" value="red"  onclick="document.getElementById(\'attributes\').value=\'red\';" />red';
+    html_str += '<input type="radio" name="attributes" id="attributes" value="white"  onclick="document.getElementById(\'attributes\').value=\'white\';" />white';
+    html_str += '<input type="radio" name="attributes" id="attributes" value="yellow" onclick="document.getElementById(\'attributes\').value=\'yellow\';" />yellow';
+    html_str += '<input type="radio" name="attributes" id="attributes" value="multiple" onclick="document.getElementById(\'attributes\').value=\'multiple\';" />multiple';
+  }
+  else if (color=='blue') {
+    html_str += '<input type="radio" name="attributes" id="attributes" value="beige" onclick="document.getElementById(\'attributes\').value=\'beige\';" />beige';
+    html_str += '<input type="radio" name="attributes" id="attributes" value="black"  onclick="document.getElementById(\'attributes\').value=\'black\';" />black';
+    html_str += '<input type="radio" name="attributes" id="attributes" value="blue" checked="yes" onclick="document.getElementById(\'attributes\').value=\'blue\';" />blue';
+    html_str += '<input type="radio" name="attributes" id="attributes" value="brown" onclick="document.getElementById(\'attributes\').value=\'brown\';" />brown';
+    html_str += '<input type="radio" name="attributes" id="attributes" value="gray" onclick="document.getElementById(\'attributes\').value=\'gray\';" />gray';
+    html_str += '<input type="radio" name="attributes" id="attributes" value="green"  onclick="document.getElementById(\'attributes\').value=\'green\';" />green';
+    html_str += '<input type="radio" name="attributes" id="attributes" value="orange"  onclick="document.getElementById(\'attributes\').value=\'orange\';" />orange';
+    html_str += '<input type="radio" name="attributes" id="attributes" value="pink" onclick="document.getElementById(\'attributes\').value=\'pink\';" />pink';
+    html_str += '<input type="radio" name="attributes" id="attributes" value="purple" onclick="document.getElementById(\'attributes\').value=\'purple\';" />purple';
+    html_str += '<input type="radio" name="attributes" id="attributes" value="red"  onclick="document.getElementById(\'attributes\').value=\'red\';" />red';
+    html_str += '<input type="radio" name="attributes" id="attributes" value="white"  onclick="document.getElementById(\'attributes\').value=\'white\';" />white';
+    html_str += '<input type="radio" name="attributes" id="attributes" value="yellow" onclick="document.getElementById(\'attributes\').value=\'yellow\';" />yellow';
+    html_str += '<input type="radio" name="attributes" id="attributes" value="multiple" onclick="document.getElementById(\'attributes\').value=\'multiple\';" />multiple';
+  }
+  else if (color=='brown') {
+    html_str += '<input type="radio" name="attributes" id="attributes" value="beige" onclick="document.getElementById(\'attributes\').value=\'beige\';" />beige';
+    html_str += '<input type="radio" name="attributes" id="attributes" value="black"  onclick="document.getElementById(\'attributes\').value=\'black\';" />black';
+    html_str += '<input type="radio" name="attributes" id="attributes" value="blue"  onclick="document.getElementById(\'attributes\').value=\'blue\';" />blue';
+    html_str += '<input type="radio" name="attributes" id="attributes" value="brown" checked="yes" onclick="document.getElementById(\'attributes\').value=\'brown\';" />brown';
+    html_str += '<input type="radio" name="attributes" id="attributes" value="gray" onclick="document.getElementById(\'attributes\').value=\'gray\';" />gray';
+    html_str += '<input type="radio" name="attributes" id="attributes" value="green"  onclick="document.getElementById(\'attributes\').value=\'green\';" />green';
+    html_str += '<input type="radio" name="attributes" id="attributes" value="orange"  onclick="document.getElementById(\'attributes\').value=\'orange\';" />orange';
+    html_str += '<input type="radio" name="attributes" id="attributes" value="pink" onclick="document.getElementById(\'attributes\').value=\'pink\';" />pink';
+    html_str += '<input type="radio" name="attributes" id="attributes" value="purple" onclick="document.getElementById(\'attributes\').value=\'purple\';" />purple';
+    html_str += '<input type="radio" name="attributes" id="attributes" value="red"  onclick="document.getElementById(\'attributes\').value=\'red\';" />red';
+    html_str += '<input type="radio" name="attributes" id="attributes" value="white"  onclick="document.getElementById(\'attributes\').value=\'white\';" />white';
+    html_str += '<input type="radio" name="attributes" id="attributes" value="yellow" onclick="document.getElementById(\'attributes\').value=\'yellow\';" />yellow';
+    html_str += '<input type="radio" name="attributes" id="attributes" value="multiple" onclick="document.getElementById(\'attributes\').value=\'multiple\';" />multiple';
+  }
+  else if (color=='gray') {
+    html_str += '<input type="radio" name="attributes" id="attributes" value="beige" onclick="document.getElementById(\'attributes\').value=\'beige\';" />beige';
+    html_str += '<input type="radio" name="attributes" id="attributes" value="black"  onclick="document.getElementById(\'attributes\').value=\'black\';" />black';
+    html_str += '<input type="radio" name="attributes" id="attributes" value="blue"  onclick="document.getElementById(\'attributes\').value=\'blue\';" />blue';
+    html_str += '<input type="radio" name="attributes" id="attributes" value="brown" onclick="document.getElementById(\'attributes\').value=\'brown\';" />brown';
+    html_str += '<input type="radio" name="attributes" id="attributes" value="gray" checked="yes" onclick="document.getElementById(\'attributes\').value=\'gray\';" />gray';
+    html_str += '<input type="radio" name="attributes" id="attributes" value="green"  onclick="document.getElementById(\'attributes\').value=\'green\';" />green';
+    html_str += '<input type="radio" name="attributes" id="attributes" value="orange"  onclick="document.getElementById(\'attributes\').value=\'orange\';" />orange';
+    html_str += '<input type="radio" name="attributes" id="attributes" value="pink" onclick="document.getElementById(\'attributes\').value=\'pink\';" />pink';
+    html_str += '<input type="radio" name="attributes" id="attributes" value="purple" onclick="document.getElementById(\'attributes\').value=\'purple\';" />purple';
+    html_str += '<input type="radio" name="attributes" id="attributes" value="red"  onclick="document.getElementById(\'attributes\').value=\'red\';" />red';
+    html_str += '<input type="radio" name="attributes" id="attributes" value="white"  onclick="document.getElementById(\'attributes\').value=\'white\';" />white';
+    html_str += '<input type="radio" name="attributes" id="attributes" value="yellow" onclick="document.getElementById(\'attributes\').value=\'yellow\';" />yellow';
+    html_str += '<input type="radio" name="attributes" id="attributes" value="multiple" onclick="document.getElementById(\'attributes\').value=\'multiple\';" />multiple';
+  }
+  else if (color=='green') {
+    html_str += '<input type="radio" name="attributes" id="attributes" value="beige" onclick="document.getElementById(\'attributes\').value=\'beige\';" />beige';
+    html_str += '<input type="radio" name="attributes" id="attributes" value="black"  onclick="document.getElementById(\'attributes\').value=\'black\';" />black';
+    html_str += '<input type="radio" name="attributes" id="attributes" value="blue"  onclick="document.getElementById(\'attributes\').value=\'blue\';" />blue';
+    html_str += '<input type="radio" name="attributes" id="attributes" value="brown" onclick="document.getElementById(\'attributes\').value=\'brown\';" />brown';
+    html_str += '<input type="radio" name="attributes" id="attributes" value="gray" onclick="document.getElementById(\'attributes\').value=\'gray\';" />gray';
+    html_str += '<input type="radio" name="attributes" id="attributes" value="green" checked="yes" onclick="document.getElementById(\'attributes\').value=\'green\';" />green';
+    html_str += '<input type="radio" name="attributes" id="attributes" value="orange"  onclick="document.getElementById(\'attributes\').value=\'orange\';" />orange';
+    html_str += '<input type="radio" name="attributes" id="attributes" value="pink" onclick="document.getElementById(\'attributes\').value=\'pink\';" />pink';
+    html_str += '<input type="radio" name="attributes" id="attributes" value="purple" onclick="document.getElementById(\'attributes\').value=\'purple\';" />purple';
+    html_str += '<input type="radio" name="attributes" id="attributes" value="red"  onclick="document.getElementById(\'attributes\').value=\'red\';" />red';
+    html_str += '<input type="radio" name="attributes" id="attributes" value="white"  onclick="document.getElementById(\'attributes\').value=\'white\';" />white';
+    html_str += '<input type="radio" name="attributes" id="attributes" value="yellow" onclick="document.getElementById(\'attributes\').value=\'yellow\';" />yellow';
+    html_str += '<input type="radio" name="attributes" id="attributes" value="multiple" onclick="document.getElementById(\'attributes\').value=\'multiple\';" />multiple';
+  }
+  else if (color=='orange') {
+    html_str += '<input type="radio" name="attributes" id="attributes" value="beige" onclick="document.getElementById(\'attributes\').value=\'beige\';" />beige';
+    html_str += '<input type="radio" name="attributes" id="attributes" value="black"  onclick="document.getElementById(\'attributes\').value=\'black\';" />black';
+    html_str += '<input type="radio" name="attributes" id="attributes" value="blue"  onclick="document.getElementById(\'attributes\').value=\'blue\';" />blue';
+    html_str += '<input type="radio" name="attributes" id="attributes" value="brown" onclick="document.getElementById(\'attributes\').value=\'brown\';" />brown';
+    html_str += '<input type="radio" name="attributes" id="attributes" value="gray" onclick="document.getElementById(\'attributes\').value=\'gray\';" />gray';
+    html_str += '<input type="radio" name="attributes" id="attributes" value="green"  onclick="document.getElementById(\'attributes\').value=\'green\';" />green';
+    html_str += '<input type="radio" name="attributes" id="attributes" value="orange" checked="yes" onclick="document.getElementById(\'attributes\').value=\'orange\';" />orange';
+    html_str += '<input type="radio" name="attributes" id="attributes" value="pink" onclick="document.getElementById(\'attributes\').value=\'pink\';" />pink';
+    html_str += '<input type="radio" name="attributes" id="attributes" value="purple" onclick="document.getElementById(\'attributes\').value=\'purple\';" />purple';
+    html_str += '<input type="radio" name="attributes" id="attributes" value="red"  onclick="document.getElementById(\'attributes\').value=\'red\';" />red';
+    html_str += '<input type="radio" name="attributes" id="attributes" value="white"  onclick="document.getElementById(\'attributes\').value=\'white\';" />white';
+    html_str += '<input type="radio" name="attributes" id="attributes" value="yellow" onclick="document.getElementById(\'attributes\').value=\'yellow\';" />yellow';
+    html_str += '<input type="radio" name="attributes" id="attributes" value="multiple" onclick="document.getElementById(\'attributes\').value=\'multiple\';" />multiple';
+  }
+  else if (color=='pink') {
+    html_str += '<input type="radio" name="attributes" id="attributes" value="beige" onclick="document.getElementById(\'attributes\').value=\'beige\';" />beige';
+    html_str += '<input type="radio" name="attributes" id="attributes" value="black"  onclick="document.getElementById(\'attributes\').value=\'black\';" />black';
+    html_str += '<input type="radio" name="attributes" id="attributes" value="blue"  onclick="document.getElementById(\'attributes\').value=\'blue\';" />blue';
+    html_str += '<input type="radio" name="attributes" id="attributes" value="brown" onclick="document.getElementById(\'attributes\').value=\'brown\';" />brown';
+    html_str += '<input type="radio" name="attributes" id="attributes" value="gray" onclick="document.getElementById(\'attributes\').value=\'gray\';" />gray';
+    html_str += '<input type="radio" name="attributes" id="attributes" value="green"  onclick="document.getElementById(\'attributes\').value=\'green\';" />green';
+    html_str += '<input type="radio" name="attributes" id="attributes" value="orange"  onclick="document.getElementById(\'attributes\').value=\'orange\';" />orange';
+    html_str += '<input type="radio" name="attributes" id="attributes" value="pink" checked="yes" onclick="document.getElementById(\'attributes\').value=\'pink\';" />pink';
+    html_str += '<input type="radio" name="attributes" id="attributes" value="purple" onclick="document.getElementById(\'attributes\').value=\'purple\';" />purple';
+    html_str += '<input type="radio" name="attributes" id="attributes" value="red"  onclick="document.getElementById(\'attributes\').value=\'red\';" />red';
+    html_str += '<input type="radio" name="attributes" id="attributes" value="white"  onclick="document.getElementById(\'attributes\').value=\'white\';" />white';
+    html_str += '<input type="radio" name="attributes" id="attributes" value="yellow" onclick="document.getElementById(\'attributes\').value=\'yellow\';" />yellow';
+    html_str += '<input type="radio" name="attributes" id="attributes" value="multiple" onclick="document.getElementById(\'attributes\').value=\'multiple\';" />multiple';
+  }
+  else if (color=='purple') {
+    html_str += '<input type="radio" name="attributes" id="attributes" value="beige" onclick="document.getElementById(\'attributes\').value=\'beige\';" />beige';
+    html_str += '<input type="radio" name="attributes" id="attributes" value="black"  onclick="document.getElementById(\'attributes\').value=\'black\';" />black';
+    html_str += '<input type="radio" name="attributes" id="attributes" value="blue"  onclick="document.getElementById(\'attributes\').value=\'blue\';" />blue';
+    html_str += '<input type="radio" name="attributes" id="attributes" value="brown" onclick="document.getElementById(\'attributes\').value=\'brown\';" />brown';
+    html_str += '<input type="radio" name="attributes" id="attributes" value="gray" onclick="document.getElementById(\'attributes\').value=\'gray\';" />gray';
+    html_str += '<input type="radio" name="attributes" id="attributes" value="green"  onclick="document.getElementById(\'attributes\').value=\'green\';" />green';
+    html_str += '<input type="radio" name="attributes" id="attributes" value="orange"  onclick="document.getElementById(\'attributes\').value=\'orange\';" />orange';
+    html_str += '<input type="radio" name="attributes" id="attributes" value="pink" onclick="document.getElementById(\'attributes\').value=\'pink\';" />pink';
+    html_str += '<input type="radio" name="attributes" id="attributes" value="purple" checked="yes" onclick="document.getElementById(\'attributes\').value=\'purple\';" />purple';
+    html_str += '<input type="radio" name="attributes" id="attributes" value="red"  onclick="document.getElementById(\'attributes\').value=\'red\';" />red';
+    html_str += '<input type="radio" name="attributes" id="attributes" value="white"  onclick="document.getElementById(\'attributes\').value=\'white\';" />white';
+    html_str += '<input type="radio" name="attributes" id="attributes" value="yellow" onclick="document.getElementById(\'attributes\').value=\'yellow\';" />yellow';
+    html_str += '<input type="radio" name="attributes" id="attributes" value="multiple" onclick="document.getElementById(\'attributes\').value=\'multiple\';" />multiple';
+  }
+  else if (color=='red') {
+    html_str += '<input type="radio" name="attributes" id="attributes" value="beige" onclick="document.getElementById(\'attributes\').value=\'beige\';" />beige';
+    html_str += '<input type="radio" name="attributes" id="attributes" value="black"  onclick="document.getElementById(\'attributes\').value=\'black\';" />black';
+    html_str += '<input type="radio" name="attributes" id="attributes" value="blue"  onclick="document.getElementById(\'attributes\').value=\'blue\';" />blue';
+    html_str += '<input type="radio" name="attributes" id="attributes" value="brown" onclick="document.getElementById(\'attributes\').value=\'brown\';" />brown';
+    html_str += '<input type="radio" name="attributes" id="attributes" value="gray" onclick="document.getElementById(\'attributes\').value=\'gray\';" />gray';
+    html_str += '<input type="radio" name="attributes" id="attributes" value="green"  onclick="document.getElementById(\'attributes\').value=\'green\';" />green';
+    html_str += '<input type="radio" name="attributes" id="attributes" value="orange"  onclick="document.getElementById(\'attributes\').value=\'orange\';" />orange';
+    html_str += '<input type="radio" name="attributes" id="attributes" value="pink" onclick="document.getElementById(\'attributes\').value=\'pink\';" />pink';
+    html_str += '<input type="radio" name="attributes" id="attributes" value="purple" onclick="document.getElementById(\'attributes\').value=\'purple\';" />purple';
+    html_str += '<input type="radio" name="attributes" id="attributes" value="red" checked="yes" onclick="document.getElementById(\'attributes\').value=\'red\';" />red';
+    html_str += '<input type="radio" name="attributes" id="attributes" value="white"  onclick="document.getElementById(\'attributes\').value=\'white\';" />white';
+    html_str += '<input type="radio" name="attributes" id="attributes" value="yellow" onclick="document.getElementById(\'attributes\').value=\'yellow\';" />yellow';
+    html_str += '<input type="radio" name="attributes" id="attributes" value="multiple" onclick="document.getElementById(\'attributes\').value=\'multiple\';" />multiple';
+  }
+  else if (color=='white') {
+    html_str += '<input type="radio" name="attributes" id="attributes" value="beige" onclick="document.getElementById(\'attributes\').value=\'beige\';" />beige';
+    html_str += '<input type="radio" name="attributes" id="attributes" value="black"  onclick="document.getElementById(\'attributes\').value=\'black\';" />black';
+    html_str += '<input type="radio" name="attributes" id="attributes" value="blue"  onclick="document.getElementById(\'attributes\').value=\'blue\';" />blue';
+    html_str += '<input type="radio" name="attributes" id="attributes" value="brown" onclick="document.getElementById(\'attributes\').value=\'brown\';" />brown';
+    html_str += '<input type="radio" name="attributes" id="attributes" value="gray" onclick="document.getElementById(\'attributes\').value=\'gray\';" />gray';
+    html_str += '<input type="radio" name="attributes" id="attributes" value="green"  onclick="document.getElementById(\'attributes\').value=\'green\';" />green';
+    html_str += '<input type="radio" name="attributes" id="attributes" value="orange"  onclick="document.getElementById(\'attributes\').value=\'orange\';" />orange';
+    html_str += '<input type="radio" name="attributes" id="attributes" value="pink" onclick="document.getElementById(\'attributes\').value=\'pink\';" />pink';
+    html_str += '<input type="radio" name="attributes" id="attributes" value="purple" onclick="document.getElementById(\'attributes\').value=\'purple\';" />purple';
+    html_str += '<input type="radio" name="attributes" id="attributes" value="red"  onclick="document.getElementById(\'attributes\').value=\'red\';" />red';
+    html_str += '<input type="radio" name="attributes" id="attributes" value="white" checked="yes" onclick="document.getElementById(\'attributes\').value=\'white\';" />white';
+    html_str += '<input type="radio" name="attributes" id="attributes" value="yellow" onclick="document.getElementById(\'attributes\').value=\'yellow\';" />yellow';
+    html_str += '<input type="radio" name="attributes" id="attributes" value="multiple" onclick="document.getElementById(\'attributes\').value=\'multiple\';" />multiple';
+  }
+  else if (color=='yellow') {
+    html_str += '<input type="radio" name="attributes" id="attributes" value="beige" onclick="document.getElementById(\'attributes\').value=\'beige\';" />beige';
+    html_str += '<input type="radio" name="attributes" id="attributes" value="black"  onclick="document.getElementById(\'attributes\').value=\'black\';" />black';
+    html_str += '<input type="radio" name="attributes" id="attributes" value="blue"  onclick="document.getElementById(\'attributes\').value=\'blue\';" />blue';
+    html_str += '<input type="radio" name="attributes" id="attributes" value="brown" onclick="document.getElementById(\'attributes\').value=\'brown\';" />brown';
+    html_str += '<input type="radio" name="attributes" id="attributes" value="gray" onclick="document.getElementById(\'attributes\').value=\'gray\';" />gray';
+    html_str += '<input type="radio" name="attributes" id="attributes" value="green"  onclick="document.getElementById(\'attributes\').value=\'green\';" />green';
+    html_str += '<input type="radio" name="attributes" id="attributes" value="orange"  onclick="document.getElementById(\'attributes\').value=\'orange\';" />orange';
+    html_str += '<input type="radio" name="attributes" id="attributes" value="pink" onclick="document.getElementById(\'attributes\').value=\'pink\';" />pink';
+    html_str += '<input type="radio" name="attributes" id="attributes" value="purple" onclick="document.getElementById(\'attributes\').value=\'purple\';" />purple';
+    html_str += '<input type="radio" name="attributes" id="attributes" value="red"  onclick="document.getElementById(\'attributes\').value=\'red\';" />red';
+    html_str += '<input type="radio" name="attributes" id="attributes" value="white"  onclick="document.getElementById(\'attributes\').value=\'white\';" />white';
+    html_str += '<input type="radio" name="attributes" id="attributes" value="yellow" checked="yes" onclick="document.getElementById(\'attributes\').value=\'yellow\';" />yellow';
+    html_str += '<input type="radio" name="attributes" id="attributes" value="multiple" onclick="document.getElementById(\'attributes\').value=\'multiple\';" />multiple';
+  }
+  else {
+    html_str += '<input type="radio" name="attributes" id="attributes" value="beige" onclick="document.getElementById(\'attributes\').value=\'beige\';" />beige';
+    html_str += '<input type="radio" name="attributes" id="attributes" value="black"  onclick="document.getElementById(\'attributes\').value=\'black\';" />black';
+    html_str += '<input type="radio" name="attributes" id="attributes" value="blue"  onclick="document.getElementById(\'attributes\').value=\'blue\';" />blue';
+    html_str += '<input type="radio" name="attributes" id="attributes" value="brown" onclick="document.getElementById(\'attributes\').value=\'brown\';" />brown';
+    html_str += '<input type="radio" name="attributes" id="attributes" value="gray" onclick="document.getElementById(\'attributes\').value=\'gray\';" />gray';
+    html_str += '<input type="radio" name="attributes" id="attributes" value="green"  onclick="document.getElementById(\'attributes\').value=\'green\';" />green';
+    html_str += '<input type="radio" name="attributes" id="attributes" value="orange"  onclick="document.getElementById(\'attributes\').value=\'orange\';" />orange';
+    html_str += '<input type="radio" name="attributes" id="attributes" value="pink" onclick="document.getElementById(\'attributes\').value=\'pink\';" />pink';
+    html_str += '<input type="radio" name="attributes" id="attributes" value="purple" onclick="document.getElementById(\'attributes\').value=\'purple\';" />purple';
+    html_str += '<input type="radio" name="attributes" id="attributes" value="red"  onclick="document.getElementById(\'attributes\').value=\'red\';" />red';
+    html_str += '<input type="radio" name="attributes" id="attributes" value="white"  onclick="document.getElementById(\'attributes\').value=\'white\';" />white';
+    html_str += '<input type="radio" name="attributes" id="attributes" value="yellow" onclick="document.getElementById(\'attributes\').value=\'yellow\';" />yellow';
+    html_str += '<input type="radio" name="attributes" id="attributes" value="multiple" checked="yes" onclick="document.getElementById(\'attributes\').value=\'multiple\';" />multiple';
+  }
+
+ 
+  html_str += '<br />';
+  
+  return html_str;
 }
+
+// Boxes to enter attributes
+/*function HTMLattributesBox(attList) {    
+  return '<textarea name="attributes" id="attributes" type="text" style="width:260px; height:3em;" tabindex="0" title="Enter a comma separated list of attributes, adjectives or other object properties">'+attList+'</textarea>';
+}*/
 
 
 // ****************************

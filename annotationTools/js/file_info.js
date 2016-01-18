@@ -95,6 +95,7 @@ function file_info() {
                 if(par_field=='mt_intro') {
                     MThelpPage = par_value;
                 }
+/*
                 if(par_field=='actions') {
                     // Get allowable actions:
                     var actions = par_value;
@@ -119,6 +120,12 @@ function file_info() {
                         action_DeleteExistingObjects = 0;
                     }
                 }
+*/
+                        action_CreatePolygon = 1;
+                        action_RenameExistingObjects = 1;
+                        action_ModifyControlExistingObjects = 1;
+                        action_DeleteExistingObjects = 1;
+
                 if(par_field=='viewobj') {
                     // Get option for which polygons to see:
                     var viewobj = par_value;
@@ -148,9 +155,13 @@ function file_info() {
                 }
                 if(par_field=='objects') {
                     // Set drop-down list of object to label:
-                    object_choices = par_value.replace('_',' ');
-                    object_choices = object_choices.split(/,/);
+                    //object_choices = par_value.replace('_',' ');
+                    //object_choices = object_choices.split(/,/);
                 }
+
+		object_choices = 'bags,belts,dresses,eyewear,footwear,hats,leggings,outerwear,pants,socks,skirts,tops';
+                object_choices = object_choices.split(/,/);
+
                 if((par_field=='scribble')&&(par_value=='true')) {
 		             scribble_mode = true;
 		        }
